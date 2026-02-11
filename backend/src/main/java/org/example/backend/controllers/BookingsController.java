@@ -2,12 +2,11 @@ package org.example.backend.controllers;
 
 
 import lombok.AllArgsConstructor;
-import org.example.backend.models.Bookings;
+import org.example.backend.dto.BookingNew;
+import org.example.backend.dto.BookingResponse;
+import org.example.backend.entities.Bookings;
 import org.example.backend.services.BookingService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,8 +17,13 @@ public class BookingsController {
 
     private final BookingService service;
     @GetMapping("{userId}")
-    public List<Bookings> getAllBookings(@PathVariable String userId){
+    public List<BookingResponse> getAllBookings(@PathVariable String userId){
         return service.getAllBookings(userId);
+    }
+
+    @GetMapping("/new")
+    public void addNewBooking(@RequestBody BookingNew booking){
+        service.addNewBooking(booking);
     }
 
 }

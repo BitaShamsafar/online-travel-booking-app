@@ -1,7 +1,7 @@
 package org.example.backend.services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.backend.models.Hotel;
+import org.example.backend.entities.Hotel;
 import org.example.backend.repositories.HotelRepository;
 import org.springframework.stereotype.Service;
 

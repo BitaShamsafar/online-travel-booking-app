@@ -1,6 +1,6 @@
 package org.example.backend.controllers;
 import lombok.RequiredArgsConstructor;
-import org.example.backend.models.Reviews;
+import org.example.backend.entities.Reviews;
 import org.example.backend.services.ReviewsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -1,7 +1,7 @@
 package org.example.backend.services;
 
 import lombok.AllArgsConstructor;
-import org.example.backend.models.Reviews;
+import org.example.backend.entities.Reviews;
 import org.example.backend.repositories.ReviewsRepository;
 import org.springframework.stereotype.Service;
 

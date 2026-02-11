@@ -2,7 +2,7 @@ package org.example.backend.controllers;
 
 
 import lombok.RequiredArgsConstructor;
-import org.example.backend.models.Favorites;
+import org.example.backend.entities.Favorites;
 import org.example.backend.services.FavoritesService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

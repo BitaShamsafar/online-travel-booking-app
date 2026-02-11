@@ -1,6 +1,6 @@
 package org.example.backend.repositories;
 
-import org.example.backend.models.Hotel;
+import org.example.backend.entities.Hotel;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

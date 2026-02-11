@@ -1,4 +1,4 @@
-package org.example.backend.models;
+package org.example.backend.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

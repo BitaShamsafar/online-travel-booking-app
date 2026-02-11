@@ -1,6 +1,6 @@
 package org.example.backend.repositories;
 
-import org.example.backend.models.Reviews;
+import org.example.backend.entities.Reviews;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
