@@ -1,6 +1,5 @@
 package org.example.backend.entities;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,17 +8,15 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-@Document(collection = "users")
-public class User {
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "destinations")
+public class Cities {
     @Id
     private String id;
-
     private String name;
-    private String email;
-    private String password;
-    private String role;
-    private String phone;
+    private String country;
+    private String subcountry;
+    private Integer geonameid;
 }

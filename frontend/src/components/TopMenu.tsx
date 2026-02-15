@@ -1,0 +1,16 @@
+import {Link} from "react-router-dom";
+
+const TopMenu = () => {
+    return(
+        <div className="navbar-links">
+            <Link to={'/'} >Home</Link>
+            <Link to={'/tours'} >Tours</Link>
+            <Link to={'/hotels'} >Hotels</Link>
+            <Link to={'/offers'} >Offers</Link>
+            <Link to={'/bookings'} >Your bookings</Link>
+
+        </div>
+    )
+}
+
+export default TopMenu
