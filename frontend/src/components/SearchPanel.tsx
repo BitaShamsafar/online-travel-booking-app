@@ -1,12 +1,20 @@
-import {type ChangeEvent, useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import type {City, ModalType} from "../types/types.ts";
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Calendar from "react-calendar";
+import useOutsideClick from "../hooks/useOutsideClick.tsx";
+
+
 const SearchPanel = () => {
     const [openModalId, setOpenModalId] = useState<ModalType>(undefined)
     const [destination, setDestination] = useState<string | undefined>(undefined)
     const [cities, setCities] = useState<City[] | undefined>(undefined)
+    const [checkInDate, setCheckInDate] = useState(new Date())
+    const [checkOutDate, setCheckOutDate] = useState(new Date())
+    const ref = useRef()
+
     useEffect(() => {
         if(destination == null) {
             return
@@ -21,7 +29,10 @@ const SearchPanel = () => {
     }, [destination])
 
 
+
+
     return(
+
         <div className="search-box-wrapper">
             <div className="header">Find your next destination</div>
             <div className="search-box">
@@ -30,7 +41,10 @@ const SearchPanel = () => {
                            className="search-box-input"
                            type="text"
                            name="destination"
+                           ref={ref}
+                           onMouseDown={useOutsideClick(ref, () => setOpenModalId(undefined))}
                            value={destination}
+                           onFocus={() => setOpenModalId(undefined)}
                            onChange={(e) => {
                                const value = e.target.value;
                                setDestination(value);
@@ -44,7 +58,7 @@ const SearchPanel = () => {
                     <div
                         style={{display: openModalId === 'destination' ? 'block' : 'none'}}
                         className="modal">
-                        {cities?.length >0 ? cities?.map(city => {
+                        {cities?.length > 0 ? cities?.map(city => {
                             return (
                                 <div key={city.id}
                                      className="search-result"
@@ -72,10 +86,25 @@ const SearchPanel = () => {
                         className="search-box-input"
                         type="text"
                         name="date"
+                        value={` ${checkInDate.getDate()}.${checkInDate.getMonth()}.${checkInDate.getFullYear()} - ${checkOutDate.getDate()}.${checkOutDate.getMonth()}.${checkOutDate.getFullYear()}`}
                         placeholder="Check in - Check out"/>
                     <div
                         style={{display: openModalId === 'calendar' ? 'block' : 'none'}}
                         className="modal calendar">
+                        <div className="calender-wrapper-checkin">
+                            <p>Select check-in date </p>
+                            <Calendar
+                                onChange={setCheckInDate}
+                                value={checkInDate}
+                            />
+                        </div>
+                        <div className="calender-wrapper-checkout">
+                            <p>Select check-out date </p>
+                            <Calendar
+                                onChange={setCheckOutDate}
+                                value={checkOutDate}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -91,7 +120,7 @@ const SearchPanel = () => {
                         className="modal">
                     </div>
                 </div>
-                <button className="btn">Search</button>
+                <button className="search-btn btn">Search</button>
             </div>
         </div>
     )

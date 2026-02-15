@@ -17,6 +17,7 @@
     "@fortawesome/react-fontawesome": "^3.2.0",
     "fontawesome-free": "^1.0.4",
     "react": "^19.2.0",
+    "react-calendar": "^6.0.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.0"
   },

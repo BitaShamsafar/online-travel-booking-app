@@ -87,6 +87,7 @@ img {
 .search-box-input{
     margin-right: 10px;
     min-width: 220px;
+    z-index: 1;
 }
 
 .modal{
@@ -106,7 +107,9 @@ img {
     border-bottom: 1px solid var(--seperator);
     cursor: pointer;
 }
-
+.calender-wrapper-checkin{
+    padding-bottom: 25px;
+}
 
 /*Navbar*/
 .navbar {
@@ -196,7 +199,7 @@ img {
     border: 1px solid var(--border);
 }
 
-.search-box button {
+.search-btn {
     background: var(--primary);
     color: white;
     border: none;
@@ -352,3 +355,15 @@ img {
     }
 }
 
+/*Calendar reset styles*/
+.react-calendar {
+    width: 350px;
+    max-width: 100%;
+    border: none !important;
+    background: white;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    line-height: 1.125em;
+}
+.react-calendar__tile--now {
+    background: #dfdfdf !important;
+}
