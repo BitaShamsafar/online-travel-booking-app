@@ -4,7 +4,6 @@ import org.example.backend.entities.Hotel;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -13,4 +12,6 @@ public interface HotelRepository extends MongoRepository<@NotNull Hotel, @NotNul
     @NotNull Optional<Hotel> findById(String id);
     List<Hotel> findByName(String name);
     List<Hotel> findFirstByRating(int rating);
+    List<Hotel> findByLocationIsContainingIgnoreCase(String location);
+    List<Hotel> findTop4ByRatingGreaterThan(double rating);
 }

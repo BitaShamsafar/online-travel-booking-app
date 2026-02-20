@@ -16,6 +16,7 @@ public class ReviewsService {
     public List<Reviews> findAllByHotelId(String hotelId) {
         return repository.findAllByHotelId(hotelId);
     }
+
     public List<Reviews> findAllByUserId(String userId) {
         return repository.findAllByUserId(userId);
     }

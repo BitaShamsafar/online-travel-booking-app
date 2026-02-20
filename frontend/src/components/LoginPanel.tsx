@@ -1,7 +1,7 @@
 import {useContext} from "react";
 
 import type {UserContextType} from "../types/types.ts";
-import {UserContext} from "../context/helper/userContexthelper.tsx";
+import {UserContext} from "../context/helper/contexthelper.tsx";
 
 
 const LoginPanel = () => {

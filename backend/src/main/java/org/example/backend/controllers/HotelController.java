@@ -2,10 +2,8 @@ package org.example.backend.controllers;
 import lombok.RequiredArgsConstructor;
 import org.example.backend.entities.Hotel;
 import org.example.backend.services.HotelService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -19,6 +17,14 @@ public class HotelController {
     public List<Hotel> getAllHotels() {
        return service.getAllHotels();
     }
+
+    @GetMapping("hotels/search")
+    public List<Hotel> getHotelsByLocation(@RequestParam String location) {
+        return service.getByLocation(location);
+    }
+
+    @GetMapping("/topHotels")
+    public List<Hotel> getTopHotels() { return  service.getTopHotels();}
 
     @GetMapping("/hotel/{id}")
     public Hotel getHotel(@PathVariable String id) {

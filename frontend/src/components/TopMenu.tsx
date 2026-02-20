@@ -4,8 +4,9 @@ const TopMenu = () => {
     return(
         <div className="navbar-links">
             <Link to={'/'} >Home</Link>
-            <Link to={'/tours'} >Tours</Link>
             <Link to={'/hotels'} >Hotels</Link>
+            <Link to={'/flights'} >Flights</Link>
+            <Link to={'/tours'} >Tours</Link>
             <Link to={'/offers'} >Offers</Link>
             <Link to={'/bookings'} >Your bookings</Link>
 

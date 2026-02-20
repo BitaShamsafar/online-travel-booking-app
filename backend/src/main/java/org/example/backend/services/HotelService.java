@@ -16,6 +16,10 @@ public class HotelService {
     public List<Hotel> getAllHotels(){
         return repo.findAll();
     }
+    public List<Hotel> getTopHotels() { return repo.findTop4ByRatingGreaterThan(4.2); }
+    public List<Hotel> getByLocation(String location) {
+        return repo.findByLocationIsContainingIgnoreCase(location);
+    }
     public Hotel getHotelById(String id){
         return repo.findById(id).orElse(null);
     }

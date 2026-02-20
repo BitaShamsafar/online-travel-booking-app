@@ -2,7 +2,7 @@ import {useEffect, useMemo, useState} from "react";
 import axios from 'axios'
 
 import type {User, UserContextProps, UserContextType} from "../types/types.ts";
-import { UserContext } from "./helper/userContexthelper.tsx";
+import { UserContext } from "./helper/contexthelper.tsx";
 
 
 const UserContextProvider = ({children}: UserContextProps) => {
