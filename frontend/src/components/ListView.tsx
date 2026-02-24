@@ -20,4 +20,4 @@ const ListView = ({header, data}: {
     )
 }
 
-export default ListView
+export default ListView;

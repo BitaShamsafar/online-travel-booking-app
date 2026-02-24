@@ -1,5 +1,6 @@
 import useFetch from "../hooks/useFetch.tsx";
 import CardView from "./CardView.tsx";
+import Filters from "./Filters.tsx";
 
 
 const Hotels = () => {
@@ -8,6 +9,7 @@ const Hotels = () => {
     return(
         <div className="hotels-page">
             <h2>Hotels to discover</h2>
+            <Filters/>
             <div className="hotels-wrapper">
                 {allHotels ? allHotels?.map(hotel =>
 
@@ -17,4 +19,4 @@ const Hotels = () => {
         </div>
     )
 }
-export default Hotels
+export default Hotels;

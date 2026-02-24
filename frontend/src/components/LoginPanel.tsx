@@ -32,4 +32,4 @@ const LoginPanel = () => {
         </div>
     )
 }
-export default LoginPanel
+export default LoginPanel;

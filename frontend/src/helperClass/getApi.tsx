@@ -9,6 +9,9 @@ const getApi = (source : Source) => {
         case 'topHotels':
             api = '/api/topHotels' ;
             break;
+        case 'hotel':
+            api = '/api/hotel/';
+            break;
         case 'topTours':
             api = '/api/tour/topTours' ;
             break;

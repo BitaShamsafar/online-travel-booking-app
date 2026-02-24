@@ -16,4 +16,4 @@ const Tours = () => {
         </div>
     )
 }
-export default Tours
+export default Tours;

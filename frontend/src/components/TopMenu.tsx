@@ -7,11 +7,10 @@ const TopMenu = () => {
             <Link to={'/hotels'} >Hotels</Link>
             <Link to={'/flights'} >Flights</Link>
             <Link to={'/tours'} >Tours</Link>
-            <Link to={'/offers'} >Offers</Link>
             <Link to={'/bookings'} >Your bookings</Link>
 
         </div>
     )
 }
 
-export default TopMenu
+export default TopMenu;

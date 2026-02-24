@@ -13,7 +13,7 @@ export type UserContextType = {
     loading: boolean,
     setLoading: (val: boolean) => void
 }
-export type ModalType = 'destination' | 'calendar' | 'ppl' | undefined
+export type ModalType = 'destination' | 'calendar' | 'ppl' | 'source' | undefined
 
 export type City = {
     id: string,
@@ -23,7 +23,7 @@ export type City = {
     geonameid: number
 
 }
-export type Source = 'hotels' | 'topHotels' | 'tours' | 'topTours' | 'hotelSearch'
+export type Source = 'hotels' | 'topHotels' | 'tours' | 'topTours' | 'hotelSearch' | 'hotel'
 export type HotelSearchParamsType = {
     destination: string,
     checkin: string,

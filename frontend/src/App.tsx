@@ -6,7 +6,8 @@ import Home from "./components/Home.tsx";
 import "react-calendar/dist/Calendar.css";
 import Hotels from "./components/Hotels.tsx";
 import Tours from "./components/Tours.tsx";
-import SearchResult from "./components/SearchResult.tsx";
+import SearchResultView from "./components/SearchResultView.tsx";
+import HotelDetailsView from "./components/HotelDetailsView.tsx";
 
 function App() {
 
@@ -20,7 +21,8 @@ function App() {
                           <Route path="/" element={<Home />} />
                           <Route path="/hotels" element={<Hotels />} />
                           <Route path="/tours" element={<Tours />} />
-                          <Route path="/search/hotels" element={<SearchResult />} />
+                          <Route path="/hotel/:hotelId" element={<HotelDetailsView />} />
+                          <Route path="/search/hotels" element={<SearchResultView />} />
                           {/*<Route path="/user/:userId" />*/}
                       </Routes>
                   </>

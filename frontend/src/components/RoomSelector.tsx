@@ -1,6 +1,6 @@
 
 const RoomSelector = ({props}) => {
-    const {occupancyDetails, setOccupancyDetails} = props
+    const {occupancyDetails, setOccupancyDetails, isHotel = true} = props
     return(
         <div className="occupancy-wrapper">
             <div className="row">
@@ -32,7 +32,7 @@ const RoomSelector = ({props}) => {
                     </button>
                 </div>
             </div>
-            <div className="row">
+            <div className="row" style={{display: isHotel ? 'block' : 'none'}}>
                 <div className="column">Rooms</div>
                 <div className="counter-column">
                     <button
@@ -50,4 +50,4 @@ const RoomSelector = ({props}) => {
     )
 }
 
-export default RoomSelector
+export default RoomSelector;

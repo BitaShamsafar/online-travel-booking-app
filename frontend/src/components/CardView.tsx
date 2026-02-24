@@ -1,7 +1,7 @@
 import {type ReactElement, useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import {faAngleRight, faStar} from '@fortawesome/free-solid-svg-icons';
 import { faStarHalf } from '@fortawesome/free-solid-svg-icons';
 
 const CardView = ({item}) => {
@@ -24,7 +24,7 @@ const CardView = ({item}) => {
             i++
         }
         if(isHalf){
-    const halfDesign = <span className="half-star"><FontAwesomeIcon className="half-star-active" key={item.name} color="#FDCC0D" icon={faStarHalf}/><FontAwesomeIcon className="half-star-inactive" key={item.name+1} color="#BEBEBE" icon={faStar}/></span>
+            const halfDesign = <span className="half-star"><FontAwesomeIcon className="half-star-active" key={item.name} color="#FDCC0D" icon={faStarHalf}/><FontAwesomeIcon className="half-star-inactive" key={item.name+1} color="#BEBEBE" icon={faStar}/></span>
             starsDesign = [...starsDesign, halfDesign]
         }
         let restStarsNum = isHalf ? rounded + 1 : rounded
@@ -37,7 +37,7 @@ const CardView = ({item}) => {
     }
     return(
             <div className="card-wrapper">
-                <Link to={'/hotel/'+item.name}>
+                <Link to={'/hotel/'+item.id}>
                     {numRef.current ? <img alt="pic" src={`/images/${imageUrl}.jpg`}/> : 'Loading...'}
                 <div className="details">
                     <h3>{item.name}</h3>
@@ -48,6 +48,7 @@ const CardView = ({item}) => {
                         <span className="info"> {item.rating}</span>
                     </div>
                     <div className="price">$ {item.pricePerNight || item.price } <span className="info">{item.price ? "All inclusive" :" per night"}</span></div>
+                    <div className="details-btn btn"> Check availability <FontAwesomeIcon icon={faAngleRight} /></div>
                 </div>
                 </Link>
             </div>
