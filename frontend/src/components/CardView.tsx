@@ -1,8 +1,8 @@
 import {type ReactElement, useEffect, useRef, useState} from "react";
-import {Link} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAngleRight, faStar} from '@fortawesome/free-solid-svg-icons';
-import { faStarHalf } from '@fortawesome/free-solid-svg-icons';
+import {faAngleRight, faStar, faStarHalf} from '@fortawesome/free-solid-svg-icons';
+import {useSearchData} from "../hooks/useSearchData.tsx";
 
 const CardView = ({item}) => {
 
@@ -35,9 +35,23 @@ const CardView = ({item}) => {
         return starsDesign
 
     }
-    return(
+    const navigate = useNavigate()
+    const params = useSearchData()
+    console.log('params', params)
+
+    const navigateHandler = () => {
+        if(item.name.includes('Hotel')){
+            navigate({
+                pathname: '/hotel/'+item.id,
+                search:  new URLSearchParams({...params}).toString(),
+
+            })
+        }
+    }
+
+   return(
             <div className="card-wrapper">
-                <Link to={'/hotel/'+item.id}>
+                <div onClick={() => navigateHandler()}>
                     {numRef.current ? <img alt="pic" src={`/images/${imageUrl}.jpg`}/> : 'Loading...'}
                 <div className="details">
                     <h3>{item.name}</h3>
@@ -50,9 +64,9 @@ const CardView = ({item}) => {
                     <div className="price">$ {item.pricePerNight || item.price } <span className="info">{item.price ? "All inclusive" :" per night"}</span></div>
                     <div className="details-btn btn"> Check availability <FontAwesomeIcon icon={faAngleRight} /></div>
                 </div>
-                </Link>
+                </div>
             </div>
 
     )
 }
-export default CardView
+export default CardView;

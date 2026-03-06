@@ -10,7 +10,7 @@ const SearchResultView = () => {
     const allHotels = useFetch("hotelSearch", destination)
     return <div className="search-view">
 
-            <Filters />
+            <Filters  />
         <div className="results">
         {allHotels ? allHotels?.map(hotel =>
             <CardView key={hotel.id} item={hotel} />

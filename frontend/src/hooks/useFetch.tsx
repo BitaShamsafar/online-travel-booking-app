@@ -17,7 +17,7 @@ const useFetch = (source: Source, pathVaiable?: string  ) => {
     const [data, setData] = useState<any>(undefined)
     useEffect(() => {
         axios.get(finalAPI, param).then(response => {
-            console.log('??? response', response)
+
             setData(response.data)
         })
     }, [api, finalAPI, param, pathVaiable, source]);

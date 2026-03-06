@@ -1,19 +1,23 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faStar} from '@fortawesome/free-solid-svg-icons';
 
-const Filters = ()=> {
-    const [priceRange, setPriceRange] = useState("0 - 5000");
-    const [ratings, setRatings] = useState([]);
-    const [facilities, setFacilities] = useState([]);
+const Filters = ({allFacilities, filters, setFilters})=> {
     const [sortBy, setSortBy] = useState("");
 
-    const handleCheckbox = (value, state, setState) => {
-        setState(
-            state.includes(value)
-                ? state.filter(v => v !== value)
-                : [...state, value]
-        );
-    };
+    const handleFilter = (filterType, value) => {
+        const newVal = () => {
+            if( filterType === "priceRange") {
+                return value
+            }
+            if(filters[filterType].includes(value)) {
+                return filters[filterType].filter((filterValue) => filterValue !== value)
+            }
+            return[...filters[filterType], value]
+        }
+            setFilters(prestate => ({...prestate, [filterType]: newVal() }))
 
+    }
 
     if (sortBy === "price") {
         // filteredHotels.sort((a, b) => a.price - b.price);
@@ -29,23 +33,26 @@ const Filters = ()=> {
 
                 <div className="filter-group">
                     <h4>Price</h4>
-                    <label>{priceRange}</label>
-                    <input type="range" defaultValue={0} min={0} max={5000} onChange={(e) => setPriceRange(e.target.value)} />
+                    <label>{filters.priceRange}</label>
+                    <input type="range" defaultValue={0} min={0} max={5000} onChange={(e) => handleFilter('priceRange', e.target.value)} />
                 </div>
 
                 <div className="filter-group">
                     <h4>Rating</h4>
-                    <label><input type="checkbox" onChange={() => handleCheckbox(3, ratings, setRatings)} /> 3+</label>
-                    <label><input type="checkbox" onChange={() => handleCheckbox(4, ratings, setRatings)} /> 4+</label>
-                    <label><input type="checkbox" onChange={() => handleCheckbox(5, ratings, setRatings)} /> 5</label>
+                    <label><input type="checkbox" onChange={() => handleFilter('rating', 1)} /> 1 <FontAwesomeIcon color="#FDCC0D" icon={faStar} /></label>
+                    <label><input type="checkbox" onChange={() => handleFilter('rating', 2)} /> 2 <FontAwesomeIcon color="#FDCC0D" icon={faStar} /></label>
+                    <label><input type="checkbox" onChange={() => handleFilter('rating', 3)} /> 3 <FontAwesomeIcon color="#FDCC0D" icon={faStar} /></label>
+                    <label><input type="checkbox" onChange={() => handleFilter('rating', 4)} /> 4 <FontAwesomeIcon color="#FDCC0D" icon={faStar} /></label>
+                    <label><input type="checkbox" onChange={() => handleFilter('rating', 5)} /> 5 <FontAwesomeIcon color="#FDCC0D" icon={faStar} /></label>
                 </div>
 
                 <div className="filter-group">
                     <h4>Facilities</h4>
-                    <label><input type="checkbox" onChange={() => handleCheckbox("wifi", facilities, setFacilities)} /> Wifi</label>
-                    <label><input type="checkbox" onChange={() => handleCheckbox("pool", facilities, setFacilities)} /> Pool</label>
-                    <label><input type="checkbox" onChange={() => handleCheckbox("gym", facilities, setFacilities)} /> Gym</label>
-                    <label><input type="checkbox" onChange={() => handleCheckbox("spa", facilities, setFacilities)} /> Spa</label>
+                    {allFacilities()?.map((facility) => (
+                    <label key={facility}>
+                        <input type="checkbox" onChange={() => handleFilter('facilities', facility)} /> {facility}
+                    </label>
+                    ))}
                 </div>
 
                 <div className="filter-group">

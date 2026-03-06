@@ -8,13 +8,14 @@ import Hotels from "./components/Hotels.tsx";
 import Tours from "./components/Tours.tsx";
 import SearchResultView from "./components/SearchResultView.tsx";
 import HotelDetailsView from "./components/HotelDetailsView.tsx";
+import ShoppingCartContextProvider from "./context/ShoppingCartContext.tsx";
 
 function App() {
 
   return (
       <BrowserRouter>
           <UserContextProvider>
-
+              <ShoppingCartContextProvider >
                   <>
                       <Navbar />
                       <Routes>
@@ -22,11 +23,11 @@ function App() {
                           <Route path="/hotels" element={<Hotels />} />
                           <Route path="/tours" element={<Tours />} />
                           <Route path="/hotel/:hotelId" element={<HotelDetailsView />} />
-                          <Route path="/search/hotels" element={<SearchResultView />} />
+                          <Route path="/search/hotels" element={<Hotels />} />
                           {/*<Route path="/user/:userId" />*/}
                       </Routes>
                   </>
-
+                </ShoppingCartContextProvider>
           </UserContextProvider>
       </BrowserRouter>
 

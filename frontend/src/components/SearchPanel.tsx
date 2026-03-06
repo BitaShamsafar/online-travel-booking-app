@@ -21,7 +21,7 @@ const SearchPanel = () => {
                 </button>
             </div>
             <div className="search-box" style={{display: activeTab == 'hotel' ? 'block flex' : 'none'}}>
-                <HotelSearch />
+                <HotelSearch  />
             </div>
             <div className="search-box" style={{display: activeTab == 'flight' ? 'block flex' : 'none'}}>
                 <FlightSerach/>

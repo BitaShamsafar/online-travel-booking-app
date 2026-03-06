@@ -6,19 +6,22 @@ import Calendar from "react-calendar";
 import RoomSelector from "./RoomSelector.tsx";
 import {useNavigate} from "react-router-dom";
 import axios from 'axios';
+import {normalizeParam} from "../hooks/useSearchData.tsx";
 
-const FlightSearch = () => {
+const FlightSearch = ({params}) => {
 
     const [tripType, setTripType] = useState("roundTrip");
     const [openModalId, setOpenModalId] = useState<ModalType>(undefined)
-    const [destination, setDestination] = useState<string | undefined>()
+    const [destination, setDestination] = useState<string | undefined>(normalizeParam(params?.destination))
     const [source, setSource] = useState<string | undefined>()
     const [cities, setCities] = useState<City[] | undefined>(undefined)
-    const [checkInDate, setCheckInDate] = useState<Date | undefined>(undefined)
-    const [checkOutDate, setCheckOutDate] = useState<Date | undefined>(undefined)
+
+    const [checkInDate, setCheckInDate] = useState<Date | undefined>(normalizeParam(params?.checkin) ? new Date(params?.checkin) : undefined)
+    const [checkOutDate, setCheckOutDate] = useState<Date | undefined>(normalizeParam(params?.checkout) ? new Date(params?.checkout) : undefined)
     const [occupancyDetails, setOccupancyDetails] = useState({
-        adults: 2,
-        children: 0,
+        adults: normalizeParam(params?.adults) || 2,
+        children: normalizeParam(params?.children) || 0,
+        rooms: params?.rooms
     })
 
     const modalRefDest = useRef<HTMLDivElement>(undefined)
@@ -30,25 +33,34 @@ const FlightSearch = () => {
             setOpenModalId(undefined)
         }
     }
+
     useEffect(() => {
         document.addEventListener('mousedown', checkOutsideClick)
-    });
+    })
+    const recievedParam = normalizeParam(params?.destination) || ''
     useEffect(() => {
-        if(destination == null) {
+
+        if(normalizeParam(destination) == null || destination == recievedParam) {
             return
         }
+
         const debounce = setTimeout(() => {
             axios.get(`api/cities/${destination}`)
                 .then(res => setCities(res.data))
                 .catch(err => console.log('ERR', err)
                 )
         }, 500)
+
         return () => clearTimeout(debounce)
-    }, [destination])
+
+    }, [destination, recievedParam])
+
     useEffect(() => {
         if(source == null) {
             return
         }
+
+        
         const debounce = setTimeout(() => {
             axios.get(`api/cities/${source}`)
                 .then(res => setCities(res.data))
@@ -229,7 +241,7 @@ const FlightSearch = () => {
                                 type="search"
                                 name="ppl"
                                 readOnly
-                                value={`${occupancyDetails.adults + occupancyDetails.children} Passengers`}
+                                value={`${parseInt(occupancyDetails.adults) + parseInt(occupancyDetails.children)} Passengers`}
                                 placeholder="2 adults - 0 children - 1 room"/>
                             <div
                                 style={{display: openModalId === 'ppl' ? 'block' : 'none'}}

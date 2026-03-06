@@ -6,18 +6,35 @@ import RoomSelector from "./RoomSelector.tsx";
 import {useCallback, useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+type HotelSearchProps = {
+    noSearch?: boolean,
+    updateNights?: (nights: number) => void
+    setOccupancy?: () => void,
+    seachParams?: {
+        destination?: string,
+        checkin?: string,
+        checkout?: string,
+        adults?: number,
+        children?: number,
+        rooms?: number
+    }
+}
 
-const HotelSearch = () => {
+const HotelSearch = (props : HotelSearchProps) => {
     const [openModalId, setOpenModalId] = useState<ModalType>(undefined)
     const [destination, setDestination] = useState<string | undefined>()
+    console.log('search params', props.seachParams)
     const [cities, setCities] = useState<City[] | undefined>(undefined)
-    const [checkInDate, setCheckInDate] = useState<Date | undefined>(undefined)
-    const [checkOutDate, setCheckOutDate] = useState<Date | undefined>(undefined)
+    const checkindefault = props.seachParams?.checkin ? new Date(props.seachParams.checkin) : undefined
+    const checkoutdefault = props.seachParams?.checkout ? new Date(props.seachParams.checkout) : undefined
+    const [checkInDate, setCheckInDate] = useState<Date | undefined>(checkindefault)
+    const [checkOutDate, setCheckOutDate] = useState<Date | undefined>(checkoutdefault)
     const [occupancyDetails, setOccupancyDetails] = useState({
-        adults: 2,
-        children: 0,
-        room: 1
+        adults: props.seachParams?.adults || 2,
+        children: props.seachParams?.children || 0,
+        room: props.seachParams?.rooms || 1
     })
+    const {noSearch, updateNights, setOccupancy} = props
 
     const modalRefDest = useRef<HTMLDivElement>()
     const modalRefDate = useRef<HTMLDivElement>()
@@ -30,6 +47,9 @@ const HotelSearch = () => {
     }
     useEffect(() => {
         document.addEventListener('mousedown', checkOutsideClick)
+        return () => {
+            document.removeEventListener('mousedown', checkOutsideClick);
+        };
     });
     useEffect(() => {
         if(destination == null) {
@@ -43,13 +63,28 @@ const HotelSearch = () => {
         }, 500)
         return () => clearTimeout(debounce)
     }, [destination])
+    useEffect(() => {
+        if (checkInDate && checkOutDate && updateNights) {
+            const timeDiff = checkOutDate.getTime() - checkInDate.getTime();
+            const calculatedNights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            updateNights(calculatedNights);
+        }
+    }, [checkInDate, checkOutDate, updateNights]);
 
+    useEffect(() => {
+
+        if(setOccupancy){
+
+            setOccupancy(occupancyDetails)
+        }
+
+    }, [occupancyDetails]);
 
     const getDatePlaceholder = useCallback((): string => {
         const checkInString = checkInDate ? ` ${checkInDate.getDate()}.${checkInDate.getMonth()}.${checkInDate.getFullYear()} - ` : 'Checkin Date - '
         const checkoutString = checkOutDate ? `${checkOutDate.getDate()}.${checkOutDate.getMonth()}.${checkOutDate.getFullYear()}` : 'Checkout Date'
         return checkInString + checkoutString
-    }, [checkOutDate, checkInDate])
+    }, [checkInDate, checkOutDate])
 
     const navigate = useNavigate();
 
@@ -65,7 +100,9 @@ const HotelSearch = () => {
                 destination,
                 checkin: checkInDate,
                 checkout: checkOutDate,
-                occupancy: occupancyDetails,
+                adults: occupancyDetails.adults,
+                children: occupancyDetails.children,
+                rooms: occupancyDetails.room
             }).toString(),
         });
     };
@@ -77,6 +114,7 @@ return(
                className="search-box-input"
                type="text"
                name="destination"
+               style={{display: noSearch ? 'none' : undefined}}
                value={destination}
                onFocus={() => setOpenModalId(undefined)}
                onChange={(e) => {
@@ -157,7 +195,7 @@ return(
             <RoomSelector props={{occupancyDetails, setOccupancyDetails}} />
         </div>
     </div>
-    <button className="search-btn btn" onClick={handleSearch}>
+    <button className="search-btn btn" onClick={() => handleSearch()}  style={{display: noSearch ? 'none' : undefined}}>
         Search
     </button>
         </>)

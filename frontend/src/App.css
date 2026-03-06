@@ -308,6 +308,21 @@ img {
     margin-top: 15px;
     cursor: pointer;
 }
+.book-now-btn:disabled{
+    background: #dfdddd;
+    color: #c8c6c6;
+    cursor: not-allowed;
+}
+.shoppingCartModal{
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 300px;
+    background: white;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border-radius: 8px;
+}
 
 .book-now-btn:hover {
     opacity: 0.9;
@@ -557,7 +572,7 @@ img {
 
 }
 .filter-panel{
-    position: fixed;
+    float: left;
     width: 260px;
     padding: 20px;
     background: white;
@@ -754,4 +769,11 @@ img {
 }
 .react-calendar__tile--now {
     background: #dfdfdf !important;
+}
+.booking-request{
+    width: 100%;
+    background: white;
+    text-align: center;
+    padding: 10px 0px;
+    margin: 20px 0px;
 }
