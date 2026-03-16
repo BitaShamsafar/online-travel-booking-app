@@ -6,6 +6,7 @@ import RoomSelector from "./RoomSelector.tsx";
 import {useCallback, useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {normalizeParam} from "../hooks/useSearchData.tsx";
 type HotelSearchProps = {
     noSearch?: boolean,
     updateNights?: (nights: number) => void
@@ -25,17 +26,16 @@ const HotelSearch = (props : HotelSearchProps) => {
     const [destination, setDestination] = useState<string | undefined>()
     console.log('search params', props.seachParams)
     const [cities, setCities] = useState<City[] | undefined>(undefined)
-    const checkindefault = props.seachParams?.checkin ? new Date(props.seachParams.checkin) : undefined
-    const checkoutdefault = props.seachParams?.checkout ? new Date(props.seachParams.checkout) : undefined
+    const checkindefault = props.seachParams && normalizeParam(props.seachParams?.checkin) !== null ? new Date(props.seachParams.checkin) : undefined
+    const checkoutdefault = props.seachParams && normalizeParam(props.seachParams?.checkout) !== null ? new Date(props.seachParams.checkout) : undefined
     const [checkInDate, setCheckInDate] = useState<Date | undefined>(checkindefault)
     const [checkOutDate, setCheckOutDate] = useState<Date | undefined>(checkoutdefault)
     const [occupancyDetails, setOccupancyDetails] = useState({
-        adults: props.seachParams?.adults || 2,
-        children: props.seachParams?.children || 0,
-        room: props.seachParams?.rooms || 1
+        adults: normalizeParam(props.seachParams?.adults) || 2,
+        children: normalizeParam(props.seachParams?.children) || 0,
+        room: normalizeParam(props.seachParams?.rooms) || 1
     })
     const {noSearch, updateNights, setOccupancy} = props
-
     const modalRefDest = useRef<HTMLDivElement>()
     const modalRefDate = useRef<HTMLDivElement>()
     const modalRefPpl = useRef<HTMLDivElement>()
